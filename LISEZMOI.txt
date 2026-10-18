@@ -1,0 +1,30 @@
+O’COURANT STOCK — PROJET iOS NATIF
+=================================
+
+Ce dossier contient le code source d’une application iOS native SwiftUI.
+Les données (articles et photos) sont enregistrées localement dans l’espace privé de l’application sur l’iPhone, via UserDefaults. Rien n’est envoyé vers un serveur.
+
+Fonctions incluses
+- Ajouter / modifier / supprimer des articles
+- Catégories électricité, plomberie, chauffage, outillage, autre
+- Photo par article
+- Quantité, unité, référence, prix d’achat, prix de revente, notes
+- Recherche et filtre par catégorie
+- Calcul des quantités et valeurs totales du stock
+- Export et import d’une sauvegarde JSON comprenant les photos
+- Ajustement rapide des quantités depuis la liste
+
+IMPORTANT : ce ZIP N’EST PAS un fichier .ipa signé.
+Pour créer un .ipa, il faut ouvrir le projet avec Xcode sur macOS, sélectionner une équipe de signature Apple, puis compiler/exporter l’application. Windows 11 ne peut pas exécuter Xcode directement.
+
+Compilation sur Mac
+1. Décompresser le ZIP.
+2. Ouvrir OCourantStock.xcodeproj dans Xcode.
+3. Dans Signing & Capabilities, choisir votre Apple Account / Personal Team.
+4. Connecter l’iPhone, le sélectionner comme destination et appuyer sur Run.
+5. Pour exporter un .ipa, utiliser Product > Archive puis Distribute App, selon le mode de distribution choisi.
+
+Avec un compte Apple gratuit, les applications de développement installées via une Personal Team expirent normalement après 7 jours et doivent être réinstallées/re-signées. La distribution directe durable a des contraintes supplémentaires. Consultez la documentation officielle Apple sur la signature Xcode.
+
+Sauvegarde
+Utilisez le bouton d’export (icône disque) régulièrement et conservez le fichier JSON dans Fichiers/iCloud Drive ou sur un PC. La suppression de l’application ou une panne de téléphone peut faire perdre les données locales si vous n’avez pas de sauvegarde.
