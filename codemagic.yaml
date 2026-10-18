@@ -6,9 +6,23 @@ workflows:
     environment:
       xcode: latest
     scripts:
-      - name: Lister les projets Xcode
+      - name: Vérifier le projet Xcode
         script: |
-          find . -name "*.xcodeproj" -o -name "*.xcworkspace"
-      - name: Compiler l'application iOS
+          set -e
+          test -d "OCourantStock.xcodeproj"
+          test -f "OCourantStock.xcodeproj/project.pbxproj"
+          test -f "OCourantStock/OCourantStockApp.swift"
+          xcodebuild -list -project "OCourantStock.xcodeproj"
+      - name: Compiler pour vérifier le code (simulateur iOS)
         script: |
-          xcodebuild -list -project OCourantStock.xcodeproj
+          set -e
+          xcodebuild \
+            -project "OCourantStock.xcodeproj" \
+            -scheme "OCourantStock" \
+            -sdk iphonesimulator \
+            -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+    artifacts:
+      - build/**
