@@ -3,8 +3,10 @@ workflows:
     name: O'Courant Stock iOS
     max_build_duration: 60
     instance_type: mac_mini_m2
+
     environment:
       xcode: latest
+
     scripts:
       - name: Vérifier le projet Xcode
         script: |
@@ -13,16 +15,26 @@ workflows:
           test -f "OCourantStock.xcodeproj/project.pbxproj"
           test -f "OCourantStock/OCourantStockApp.swift"
           xcodebuild -list -project "OCourantStock.xcodeproj"
-      - name: Compiler pour vérifier le code (simulateur iOS)
+
+      - name: Compiler pour iPhone
         script: |
           set -e
           xcodebuild \
             -project "OCourantStock.xcodeproj" \
             -scheme "OCourantStock" \
-            -sdk iphonesimulator \
-            -configuration Debug \
-            -destination 'generic/platform=iOS Simulator' \
+            -sdk iphoneos \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath build/DerivedData \
             CODE_SIGNING_ALLOWED=NO \
             build
-    artifacts:
-      - build/**
+
+      - name: Créer le fichier IPA
+        script: |
+          set -e
+          APP_PATH="build/DerivedData/Build/Products/Release-iphoneos/OCourantStock.app"
+          test -d "$APP_PATH"
+          mkdir -p build/ipa/Payload
+          cp -R "$APP_PATH" build/ipa/Payload/
+          cd build/ipa
+          zip -r ../../OCourantStock.ipa Payload
