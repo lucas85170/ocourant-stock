@@ -37,4 +37,4 @@ workflows:
           mkdir -p build/ipa/Payload
           cp -R "$APP_PATH" build/ipa/Payload/
           cd build/ipa
-          zip -r ../../OCourantStock.ipa Payload
+          zip -r ../OCourantStock.ipa Payload
